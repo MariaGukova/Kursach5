@@ -1,7 +1,6 @@
 package com.Server.dataBase;
 
 import com.Server.constants.Constants;
-import com.Server.server.DatabaseConnectionProvider;
 import com.example.it.Admin;
 import com.example.it.Project;
 import com.example.it.User;
@@ -12,16 +11,14 @@ import java.util.List;
 
 public class Database {
 
-   private static Connection connection;
+    private static Connection connection;
     private static Statement statement;
 
     public Database() {
         connectionToDB();
-        Tables tables = new Tables(connection, statement);
-        tables.createTablesInDataBase();
     }
 
-         public void connectionToDB() {
+    public void connectionToDB() {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -39,17 +36,16 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-         }
+    }
 
 
-
-        public  ResultSet getUserAuthorization (User user){
+    public ResultSet getUserAuthorization(User user) {//проверка на существование пользователя
 
         ResultSet resSet = null;
-        String select = "SELECT " + Constants.LOGIN + "," + Constants.PASSWORD +  " FROM " + Constants.USERS_TABLE +
+        String select = "SELECT " + Constants.LOGIN + "," + Constants.PASSWORD + " FROM " + Constants.USERS_TABLE +
                 " WHERE " + Constants.LOGIN + " =? " + "AND " + Constants.PASSWORD + " =? ";
 
-        try{
+        try {
             PreparedStatement preparedStmt = connection.prepareStatement(select);
             preparedStmt.setString(1, user.getLogin());
             preparedStmt.setString(2, user.getPassword());
@@ -62,38 +58,39 @@ public class Database {
             throwables.printStackTrace();
         }
 
-        return  resSet;
+        return resSet;
+    }
+
+
+    public void getUserRegistration(User user) {//регистрация пользователя
+
+        try {
+
+            String select = "insert into " + Constants.USERS_TABLE + "(login, password, name, surname) "
+                    + "values (?, ?, ?, ?)";
+
+
+            PreparedStatement preparedStmt = connection.prepareStatement(select);
+            preparedStmt.setString(1, user.getLogin());
+            preparedStmt.setString(2, user.getPassword());
+            preparedStmt.setString(3, user.getName());
+            preparedStmt.setString(4, user.getSurname());
+
+            preparedStmt.execute();
+            System.out.println("User was registred !");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-
-        public  void  getUserRegistration (User user) {
-
-            try {
-
-                String select = "insert into " + Constants.USERS_TABLE + "(login, password, name, surname) "
-                        + "values (?, ?, ?, ?)";
+    }
 
 
-                PreparedStatement preparedStmt = connection.prepareStatement(select);
-                preparedStmt.setString(1, user.getLogin());
-                preparedStmt.setString(2, user.getPassword());
-                preparedStmt.setString(3, user.getName());
-                preparedStmt.setString(4, user.getSurname());
-
-                preparedStmt.execute();
-                System.out.println("User was registred !");
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-
-
-        public  ResultSet getAdminAuthorization (Admin admin){
+    public ResultSet getAdminAuthorization(Admin admin) {//проверка на существование админа
 
         ResultSet resSet = null;
-        String select = "SELECT " + Constants.ADMIN_LOGIN + "," + Constants.ADMIN_PASSWORD +  " FROM " + Constants.ADMIN_TABLE +
+        String select = "SELECT " + Constants.ADMIN_LOGIN + "," + Constants.ADMIN_PASSWORD + " FROM " + Constants.ADMIN_TABLE +
                 " WHERE " + Constants.ADMIN_LOGIN + " =? " + "AND " + Constants.ADMIN_PASSWORD + " =? ";
 
-        try{
+        try {
             PreparedStatement preparedStmt = connection.prepareStatement(select);
             preparedStmt.setString(1, admin.getLogin());
             preparedStmt.setString(2, admin.getPassword());
@@ -104,98 +101,33 @@ public class Database {
             throwables.printStackTrace();
         }
 
-        return  resSet;
-        }
+        return resSet;
+    }
 
-       /* public List<Project> showAllProjects() throws ClassNotFoundException {
+    /*
+         public  void redactionProjectInDataBase(int id, String name, String customer, String cost, String deadline )  {
 
-            List<Project> projects = new ArrayList<>();
+         String query = "UPDATE "+Constants.PROJECTS_TABLE +" SET name  = ?, customer = ? ,cost = ?,deadline = ?   WHERE id = ?";
+         PreparedStatement preparedStmt = null;
+         try {
+         preparedStmt = connection.prepareStatement(query);
+         preparedStmt.setString   (1, name);
+         preparedStmt.setString(2, customer);
+         preparedStmt.setString(3, cost);
+         preparedStmt.setString(4, deadline);
+         preparedStmt.setInt(5, id);
 
-            ResultSet resSet = null;
-            Class.forName("org.postgresql.Driver");
-            String query = "SELECT " + Constants.PROJECT_ID + " , " + Constants.PROJECT_NAME + " , " + Constants.CUSTOMER + " , "
-                    + Constants.COST + " ," + Constants.DEADLINE + " FROM " + Constants.PROJECTS_TABLE;
-            ResultSet rs;
-            try {
-                rs = statement.executeQuery(query);
+         preparedStmt.executeUpdate();
+         } catch (SQLException throwables) {
+         throwables.printStackTrace();
+         }
 
-                while (rs.next()) {
-
-                    int id = resSet.getInt("id");
-                    String name = resSet.getString("name");
-                    String customer = resSet.getString("customer");
-                    String cost = resSet.getString("cost");
-                    String deadline = resSet.getString("deadline");
-
-                    Project project = new Project(id, name, customer, cost, deadline);
-                    projects.add(project);
-                }
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            return projects;
-            }
-
-
-            public void addProjectInDataBase(String name, String customer, String cost, String deadline){
-
-                 try {
-                        String query = " insert into "+Constants.PROJECTS_TABLE +" (name, customer,cost,deadline)"
-                        + " values ( ?, ?,?,?)";
-
-                    PreparedStatement preparedStmt = connection.prepareStatement(query);
-                    preparedStmt.setString (1, name);
-                    preparedStmt.setString (2, customer);
-                    preparedStmt.setString (3, cost);
-                    preparedStmt.setString (4, deadline);
-
-
-                    preparedStmt.executeUpdate();
-                    System.out.println("New project was added ");
-                 } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                }
-            }
-
-            public void deleteProjectInDataBase(int id)  {
-                System.out.println(id);
-                String selectSQL = "DELETE FROM "+Constants.PROJECTS_TABLE +  " WHERE id = ?";
-                try {
-                connection.prepareStatement(selectSQL);
-                PreparedStatement preparedStmt = connection.prepareStatement(selectSQL);
-                preparedStmt.setInt(1, id);
-                preparedStmt.executeUpdate();
-
-                } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                }
-
-            }
-
-            public  void redactionProjectInDataBase(int id, String name, String customer, String cost, String deadline )  {
-
-            String query = "UPDATE "+Constants.PROJECTS_TABLE +" SET name  = ?, customer = ? ,cost = ?,deadline = ?   WHERE id = ?";
-            PreparedStatement preparedStmt = null;
-            try {
-            preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setString   (1, name);
-            preparedStmt.setString(2, customer);
-            preparedStmt.setString(3, cost);
-            preparedStmt.setString(4, deadline);
-            preparedStmt.setInt(5, id);
-
-            preparedStmt.executeUpdate();
-            } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            }
-
-            }*/
-    public void addProject(Project project) {
+         }*/
+    public void addProject(Project project) {//добавление проекта
         try (Connection connection = DatabaseConnectionProvider.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(// позволяет вставлять значения
-                     "insert into projects( name,customer,cost,deadline) " +
-                             "value(?, ?, ?, ?)")) {
+                      " insert into "+Constants.PROJECTS_TABLE +" (name, customer, cost, deadline)"
+                             + " values (?, ?, ?, ?)")) {
 
             preparedStatement.setString(1, project.getName());
             preparedStatement.setString(2, project.getCustomer());
@@ -208,51 +140,41 @@ public class Database {
             e.printStackTrace();
         }
     }
-    public List<Project> getAllProjects() {
+
+    public List<Project> getAllProjects() {//просмотр проектов
         List<Project> projects = new ArrayList<>();
-
+        System.out.println(" !1");
         try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+
              Statement statement = connection.createStatement()) { //выполняет запрос
+            System.out.println(" !2");
 
-            ResultSet resultSet = statement.executeQuery("select * from projects");
-
+            ResultSet resultSet = statement.executeQuery("SELECT " + Constants.PROJECT_ID + " , " + Constants.PROJECT_NAME + " , " + Constants.CUSTOMER + " , "
+                    + Constants.COST + " ," + Constants.DEADLINE + " FROM " + Constants.PROJECTS_TABLE);
+            System.out.println(" !3");
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String customer = resultSet.getString("customer");
                 String cost = resultSet.getString("cost");
                 String deadline = resultSet.getString("deadline");
+                System.out.println(" !4");
 
-
-                Project project = new Project(id, name,customer,cost,deadline);
-
+                Project project = new Project(id, name, customer, cost, deadline);
+                System.out.println(" !5");
                 projects.add(project);
+                System.out.println(" !6");
             }
         } catch (SQLException e) {
+            System.out.println(" !ебууууууууууут");
             e.printStackTrace();
         }
 
         return projects;
     }
-    /* public void addProject(Project project) {
-            try (Connection connection = DatabaseConnectionProvider.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(// позволяет вставлять значения
-                         "insert into projects( name,customer,cost,deadline) " +
-                                 "value(?, ?, ?, ?)")) {
 
-                preparedStatement.setString(1, project.getName());
-                preparedStatement.setString(2, project.getCustomer());
-                preparedStatement.setString(3, project.getCost());
-                preparedStatement.setString(4, project.getDeadline());
 
-                preparedStatement.execute();//выполняем запрос
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void updateProject(Project project) {
+        public void updateProject(Project project) {//обновление проектов после редактирования
             try (Connection connection = DatabaseConnectionProvider.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(
                          "update projects set name = ?, customer = ?, cost = ?, deadline = ? where id = ?")) {
@@ -270,23 +192,113 @@ public class Database {
             }
         }
 
-        public void deleteProjectByID(int id) {
-            try (Connection connection = DatabaseConnectionProvider.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(
-                         "delete from projects where id = ?")) {
 
-                preparedStatement.setInt(1, id);
 
-                preparedStatement.execute();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+    public void deleteProjectByID(int id) {//удаление проекта
+        try (Connection connection = DatabaseConnectionProvider.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "delete from projects where id = ?")) {
+
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void addUser (User user) {//добавление пользователя
+        try (Connection connection = DatabaseConnectionProvider.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(// позволяет вставлять значения
+                     " insert into "+Constants.USERS_TABLE +" (name, surname, login, password)"
+                             + " values (?, ?, ?, ?)")) {
+
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setString(3, user.getLogin());
+            preparedStatement.setString(4, user.getPassword());
+
+            preparedStatement.execute();//выполняем запрос
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<User> getAllUsers() {//просмотр пользователей
+            List<User> users = new ArrayList<>();
+        System.out.println(" !1");
+        try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+
+             Statement statement = connection.createStatement()) { //выполняет запрос
+            System.out.println(" !2");
+
+            ResultSet resultSet = statement.executeQuery("SELECT " + Constants.ID + " , " + Constants.NAME + " , " + Constants.SURNAME + " , "
+                    + Constants.LOGIN + " ," + Constants.PASSWORD + " FROM " + Constants.USERS_TABLE);
+            System.out.println(" !3");
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                String login = resultSet.getString("login");
+                String password = resultSet.getString("password");
+                System.out.println(" !4");
+
+                    User user = new User(id, name, surname, login, password);
+                System.out.println(" !5");
+                users.add(user);
+                System.out.println(" !6");
             }
-        }*/
+        } catch (SQLException e) {
+            System.out.println(" !ебууууууууууут");
+            e.printStackTrace();
+        }
+
+        return users;
+    }
 
 
+    public void updateUser(User user) {//обновление пользователей после редактирования
+        try (Connection connection = DatabaseConnectionProvider.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "update user set name = ?, surname = ?, login = ?, password = ? where id = ?")) {
+
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setString(3, user.getLogin());
+            preparedStatement.setString(4, user.getPassword());
+
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    public void deleteUserByID(int id) {//удаление пользователя
+        try (Connection connection = DatabaseConnectionProvider.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "delete from users where id = ?")) {
+
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
-
 
 
 

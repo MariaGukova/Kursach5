@@ -8,8 +8,6 @@ public class User {
     private String password;
 
 
-    public static  User  currentUser;
-
     public User(int id, String name, String surname, String login, String password) {
         this.id = id;
         this.name = name;

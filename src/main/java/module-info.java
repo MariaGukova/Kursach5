@@ -6,6 +6,4 @@ module com.example.it {
 
     opens com.example.it to javafx.fxml;
     exports com.example.it;
-    exports com;
-    opens com to javafx.fxml;
 }

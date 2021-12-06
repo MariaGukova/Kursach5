@@ -1,4 +1,4 @@
-package com.Server.server;
+package com.Server.ExstractProjects;
 
 import com.example.it.Project;
 import javafx.beans.property.IntegerProperty;

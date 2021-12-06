@@ -11,12 +11,12 @@
    <children>
       <AnchorPane layoutY="106.0" prefHeight="324.0" prefWidth="850.0" style="-fx-background-color: #fafafa;">
          <children>
-            <Button fx:id="User" layoutX="625.0" layoutY="242.0" mnemonicParsing="false" style="-fx-background-color: #CCCCFF;" text="User">
+            <Button fx:id="User" layoutX="587.0" layoutY="242.0" mnemonicParsing="false" style="-fx-background-color: #CCCCFF;" text="Пользователь">
                <font>
                   <Font name="Times New Roman" size="19.0" />
                </font>
             </Button>
-            <Button fx:id="Admin" layoutX="162.0" layoutY="242.0" mnemonicParsing="false" style="-fx-background-color: #CCCCFF;"   text="Administrator">
+            <Button fx:id="Admin" layoutX="162.0" layoutY="242.0" mnemonicParsing="false" style="-fx-background-color: #CCCCFF;" text="Администратор">
                <font>
                   <Font name="Times New Roman" size="19.0" />
                </font>
@@ -33,9 +33,9 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Label layoutX="320.0" layoutY="30.0" prefHeight="45.0" prefWidth="279.0" text="Choose your role" textAlignment="CENTER" textFill="#f8f6f6">
+      <Label layoutX="239.0" layoutY="32.0" prefHeight="46.0" prefWidth="373.0" text="Выберите Вашу роль" textAlignment="CENTER" textFill="#f8f6f6">
          <font>
-            <Font name="Colonna MT" size="36.0" />
+            <Font name="Century" size="36.0" />
          </font>
       </Label>
    </children>

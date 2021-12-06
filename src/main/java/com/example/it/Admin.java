@@ -6,8 +6,6 @@ public class Admin {
     private String password;
 
 
-    public static  User  currentUser;
-
     public Admin(int id, String login, String password) {
         this.id = id;
         this.login = login;

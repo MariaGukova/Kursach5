@@ -7,7 +7,6 @@ public enum Command implements Serializable {
     READ,
     UPDATE,
     DELETE,
-
     EXIT
 }
 

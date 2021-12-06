@@ -18,13 +18,13 @@
               </columns>
             </TableView>
             <TextField fx:id="TextFieldSearch" layoutX="10.0" layoutY="88.0" prefHeight="25.0" prefWidth="198.0" />
-            <Button fx:id="Search" layoutX="76.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Search" />
-            <Button fx:id="Exit" layoutX="76.0" layoutY="252.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Exit" />
+            <Button fx:id="Search" layoutX="76.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Поиск" />
+            <Button fx:id="Exit" layoutX="76.0" layoutY="252.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Выход" />
          </children>
       </AnchorPane>
-      <Label layoutX="321.0" layoutY="28.0" prefHeight="45.0" prefWidth="211.0" text="UserWindow" textAlignment="CENTER" textFill="#f8f6f6">
+      <Label layoutX="242.0" layoutY="20.0" prefHeight="46.0" prefWidth="369.0" text="Таблица IT проектов" textAlignment="CENTER" textFill="#f8f6f6">
          <font>
-            <Font name="Colonna MT" size="36.0" />
+            <Font name="Century" size="36.0" />
          </font>
       </Label>
    </children>
