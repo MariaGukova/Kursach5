@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="850.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.it.ControllerAuthorization">
+   <children>
+      <AnchorPane layoutY="106.0" prefHeight="324.0" prefWidth="850.0" style="-fx-background-color: #fafafa;">
+         <children>
+            <TextField fx:id="Login" layoutX="310.0" layoutY="52.0" prefHeight="38.0" prefWidth="190.0" promptText="Login">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font></TextField>
+            <TextField fx:id="Password" layoutX="310.0" layoutY="124.0" prefHeight="38.0" prefWidth="190.0" promptText="Password">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+            </TextField>
+            <Button fx:id="SignIn" layoutX="365.0" layoutY="208.0" mnemonicParsing="false" pickOnBounds="false" text="Sign in">
+               <font>
+                  <Font name="Times New Roman" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="Registration" layoutX="346.0" layoutY="255.0" mnemonicParsing="false" text="Registration">
+               <font>
+                  <Font name="Times New Roman" size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label layoutX="320.0" layoutY="30.0" prefHeight="45.0" prefWidth="211.0" text="Authorization" textAlignment="CENTER" textFill="#f8f6f6">
+         <font>
+            <Font name="Colonna MT" size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
