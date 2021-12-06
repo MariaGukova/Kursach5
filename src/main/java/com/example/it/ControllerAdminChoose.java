@@ -44,6 +44,7 @@ public class ControllerAdminChoose {
             primaryStage.show();
         });
 
+
         ProjectsTable.setOnAction(event -> {
             Stage stage = (Stage) ProjectsTable.getScene().getWindow();
             stage.close();
@@ -51,7 +52,7 @@ public class ControllerAdminChoose {
             Stage primaryStage = new Stage();
             Parent path = null;
             try {
-                path = FXMLLoader.load(getClass().getResource("ITTable.fxml"));
+                path = FXMLLoader.load(getClass().getResource("projectsTable.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

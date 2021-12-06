@@ -1,13 +1,14 @@
 package com.Server.server;
 
 import com.Server.Command;
+import com.Server.dataBase.Database;
 import com.example.it.Project;
 
 import java.net.Socket;
 import java.util.List;
 
 
-    public class RequestHandler implements Runnable {
+public class RequestHandler implements Runnable {
         private final ConnectionTCP connectionTCP;
 
         public RequestHandler(Socket socket) {
@@ -17,22 +18,22 @@ import java.util.List;
 
         @Override
         public void run() {
-            ProjectRepository projectRepository = new ProjectRepository();
+            Database Masha = new Database();
             while (true) {
                 Command command = (Command) connectionTCP.readObject();
                 System.out.println(command);
                 switch (command) {
                     case CREATE: {
                         Project project = (Project) connectionTCP.readObject();
-                        projectRepository.addProject(project);
+                        Masha.addProject(project);
                     }
                     break;
-                    case READ: {
-                        List<Project> projects = projectRepository.getAllProjects();
+                   case READ: {
+                        List<Project> projects = Masha.getAllProjects();
                         connectionTCP.writeObject(projects);
                     }
                     break;
-                    case UPDATE: {
+                    /*case UPDATE: {
                         Project project = (Project) connectionTCP.readObject();
                         projectRepository.updateProject(project);
                     }
@@ -45,7 +46,7 @@ import java.util.List;
                     case EXIT: {
                         connectionTCP.close();
                         return;
-                    }
+                    }*/
                 }
             }
         }
