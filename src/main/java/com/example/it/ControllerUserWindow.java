@@ -1,5 +1,6 @@
 package com.example.it;
 
+import com.example.it.model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

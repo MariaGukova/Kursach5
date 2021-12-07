@@ -1,9 +1,9 @@
 package com.Server.ExtractUsers;
 
-import com.Server.Command;
+import com.Server.dataBase.Command;
 import com.Server.dataBase.Database;
 import com.Server.server.ConnectionTCP;
-import com.example.it.User;
+import com.example.it.model.User;
 
 import java.net.Socket;
 import java.util.List;

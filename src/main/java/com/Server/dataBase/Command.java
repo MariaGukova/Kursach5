@@ -1,4 +1,4 @@
-package com.Server;
+package com.Server.dataBase;
 
 import java.io.Serializable;
 

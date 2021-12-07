@@ -2,6 +2,7 @@ package com.example.it;
 
 import com.Server.dataBase.Database;
 import com.animation.shake;
+import com.example.it.model.Admin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

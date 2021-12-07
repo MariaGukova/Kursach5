@@ -1,9 +1,9 @@
 package com.Server.dataBase;
 
 import com.Server.constants.Constants;
-import com.example.it.Admin;
-import com.example.it.Project;
-import com.example.it.User;
+import com.example.it.model.Admin;
+import com.example.it.model.Project;
+import com.example.it.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;

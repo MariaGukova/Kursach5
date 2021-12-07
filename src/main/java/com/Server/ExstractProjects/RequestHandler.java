@@ -1,9 +1,9 @@
 package com.Server.ExstractProjects;
 
-import com.Server.Command;
+import com.Server.dataBase.Command;
 import com.Server.dataBase.Database;
 import com.Server.server.ConnectionTCP;
-import com.example.it.Project;
+import com.example.it.model.Project;
 
 import java.net.Socket;
 import java.util.List;
