@@ -1,5 +1,8 @@
 package com.example.it;
 
+import com.Server.ExstractProjects.ProjectProperty;
+import com.Server.dataBase.Command;
+import com.Server.server.ConnectionTCP;
 import com.example.it.model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,24 +14,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.Socket;
+import java.util.List;
 
 
 public class ControllerUserWindow {
-    private ObservableList<Project> listProjects= FXCollections.observableArrayList();
 
     @FXML
     private Button Exit;
 
 
     @FXML
-    private TableView<Project> userTable;
+    private TableView<ProjectProperty> projectsTable;
     @FXML
-    private TableColumn<Project, Integer> ID;
+    private TableColumn<ProjectProperty, Integer> ID;
 
     @FXML
     private Button Search;
@@ -37,20 +39,52 @@ public class ControllerUserWindow {
     private TextField TextFieldSearch;
 
     @FXML
-    private TableColumn<Project,String> cost;
+    private TableColumn<ProjectProperty,String> cost;
 
     @FXML
-    private TableColumn<Project,String> customer;
+    private TableColumn<ProjectProperty,String> customer;
 
     @FXML
-    private TableColumn<Project,String> deadline;
+    private TableColumn<ProjectProperty,String> deadline;
 
     @FXML
-    private TableColumn<Project,String> name;
+    private TableColumn<ProjectProperty,String> name;
 
+    private ConnectionTCP connectionTCP;
+    private static ObservableList<ProjectProperty> tableProjectProperties = FXCollections.observableArrayList();// вызовет конструктор 0
 
     @FXML
     void initialize() {
+
+        try {
+            connectionTCP = new ConnectionTCP(new Socket("localhost", 8888));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+        ID.setCellValueFactory(cellValue -> cellValue.getValue().idProperty().asObject());
+        name.setCellValueFactory(cellValue -> cellValue.getValue().nameProperty());
+        customer.setCellValueFactory(cellValue -> cellValue.getValue().costProperty());
+        cost.setCellValueFactory(cellValue -> cellValue.getValue().customerProperty());
+        deadline.setCellValueFactory(cellValue -> cellValue.getValue().deadlineProperty());
+
+        System.out.println(" !1");
+        tableProjectProperties.clear();// чтобы не добавлять каждый раз к существующему списку
+        System.out.println("меня");
+        connectionTCP.writeObject(Command.READ);
+        System.out.println("ебет");
+        List<Project> projects = (List<Project>) connectionTCP.readObject();
+        System.out.println("курсовая");
+        for (int i = 0; i < projects.size(); i++) {
+            System.out.println(" !");
+            ProjectProperty e = new ProjectProperty(projects.get(i));
+            tableProjectProperties.add(e);
+
+        }
+        projectsTable.setItems(tableProjectProperties);// устанавливаем значение обсёрвабл листа в таблицу
+
+
 
         Exit.setOnAction(event -> {
 
@@ -71,29 +105,6 @@ public class ControllerUserWindow {
 
         });
 
-    }
-
-
-
-
-
-
-    /*try {
-               initProjects(Client.interactionsWithServer.allProjects());
-           } catch (IOException e) {
-               e.printStackTrace();
-           }*/
-    private void initProjects(ArrayList<Project> projects){
-
-        listProjects.addAll(projects);
-
-        ID.setCellValueFactory(new PropertyValueFactory<Project, Integer>("id"));
-        name.setCellValueFactory(new PropertyValueFactory<Project, String>("name"));
-        customer.setCellValueFactory(new PropertyValueFactory<Project, String>("customer"));
-        cost.setCellValueFactory(new PropertyValueFactory<Project, String>("cost"));
-        deadline.setCellValueFactory(new PropertyValueFactory<Project, String>("deadline"));
-
-        userTable.setItems(listProjects);
     }
 
 }

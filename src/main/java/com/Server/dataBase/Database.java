@@ -96,7 +96,7 @@ public class Database {
             preparedStmt.setString(2, admin.getPassword());
 
             resSet = preparedStmt.executeQuery();
-            System.out.println("Such admin exists !");
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -104,25 +104,6 @@ public class Database {
         return resSet;
     }
 
-    /*
-         public  void redactionProjectInDataBase(int id, String name, String customer, String cost, String deadline )  {
-
-         String query = "UPDATE "+Constants.PROJECTS_TABLE +" SET name  = ?, customer = ? ,cost = ?,deadline = ?   WHERE id = ?";
-         PreparedStatement preparedStmt = null;
-         try {
-         preparedStmt = connection.prepareStatement(query);
-         preparedStmt.setString   (1, name);
-         preparedStmt.setString(2, customer);
-         preparedStmt.setString(3, cost);
-         preparedStmt.setString(4, deadline);
-         preparedStmt.setInt(5, id);
-
-         preparedStmt.executeUpdate();
-         } catch (SQLException throwables) {
-         throwables.printStackTrace();
-         }
-
-         }*/
     public void addProject(Project project) {//добавление проекта
         try (Connection connection = DatabaseConnectionProvider.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(// позволяет вставлять значения
@@ -177,7 +158,7 @@ public class Database {
         public void updateProject(Project project) {//обновление проектов после редактирования
             try (Connection connection = DatabaseConnectionProvider.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(
-                         "update projects set name = ?, customer = ?, cost = ?, deadline = ? where id = ?")) {
+                         "UPDATE "+Constants.PROJECTS_TABLE +" SET name  = ?, customer = ? ,cost = ?,deadline = ?   WHERE id = ?")) {
 
                 preparedStatement.setString(1, project.getName());
                 preparedStatement.setString(2, project.getCustomer());
@@ -214,13 +195,14 @@ public class Database {
     public void addUser (User user) {//добавление пользователя
         try (Connection connection = DatabaseConnectionProvider.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(// позволяет вставлять значения
-                     " insert into "+Constants.USERS_TABLE +" (name, surname, login, password)"
+                     "insert into"+Constants.USERS_TABLE +"(name, surname, login, password)"
                              + " values (?, ?, ?, ?)")) {
 
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getLogin());
             preparedStatement.setString(4, user.getPassword());
+
 
             preparedStatement.execute();//выполняем запрос
 

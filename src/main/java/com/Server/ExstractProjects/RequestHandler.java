@@ -30,8 +30,7 @@ public class RequestHandler implements Runnable {
                     }
                     break;
                    case READ: {
-                       List<Project> projects = null;
-                       projects  = Projects.getAllProjects();
+                       List<Project> projects = Projects.getAllProjects();
                        connectionTCP.writeObject(projects);
                     }
                     break;
