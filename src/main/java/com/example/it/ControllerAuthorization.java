@@ -2,6 +2,7 @@ package com.example.it;
 
 import com.Server.dataBase.Database;
 import com.animation.shake;
+import com.example.it.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -93,7 +94,7 @@ public class ControllerAuthorization {
             Stage primaryStage = new Stage();
             Parent path = null;
             try {
-                path = FXMLLoader.load(getClass().getResource("userWindow.fxml"));
+                path = FXMLLoader.load(getClass().getResource("userChoose.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

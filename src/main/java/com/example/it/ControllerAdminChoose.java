@@ -27,6 +27,10 @@ public class ControllerAdminChoose {
 
 
     @FXML
+    private Button Analysis;
+
+
+    @FXML
     void initialize() {
         UsersTable.setOnAction(event -> {
             Stage stage = (Stage) UsersTable.getScene().getWindow();
@@ -53,6 +57,22 @@ public class ControllerAdminChoose {
             Parent path = null;
             try {
                 path = FXMLLoader.load(getClass().getResource("projectsTable.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(path);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        });
+
+        Analysis.setOnAction(actionEvent -> {
+            Stage stage = (Stage) Analysis.getScene().getWindow();
+            stage.close();
+
+            Stage primaryStage = new Stage();
+            Parent path = null;
+            try {
+                path = FXMLLoader.load(getClass().getResource("AdminAnalysis.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

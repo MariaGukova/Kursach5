@@ -1,6 +1,6 @@
 package com.Server.ExstractProjects;
 
-import com.example.it.Project;
+import com.example.it.model.Project;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,6 +13,7 @@ public class ProjectProperty {
     private  StringProperty customer;
     private StringProperty cost;
     private StringProperty deadline;
+    private StringProperty level;
 
 
     public ProjectProperty(Project project) {
@@ -21,6 +22,7 @@ public class ProjectProperty {
         customer = new SimpleStringProperty(project.getCustomer());
         cost = new SimpleStringProperty(project.getCost());
         deadline = new SimpleStringProperty(project.getDeadline());
+        level = new SimpleStringProperty(project.getLevel());
 
     }
 
@@ -31,7 +33,8 @@ public class ProjectProperty {
                 name.getValue(),
                 customer.getValue(),
                 cost.getValue(),
-                deadline.getValue());
+                deadline.getValue(),
+                level.getValue());
     }
 
     public int getId() {
@@ -76,6 +79,14 @@ public class ProjectProperty {
         return deadline;
     }
 
+    public String getLevel() {
+        return level.get();
+    }
+
+    public StringProperty levelProperty() {
+        return level;
+    }
+
 
 
     public void setName(String name) {
@@ -89,6 +100,9 @@ public class ProjectProperty {
     }
     public void setDeadline(String deadline) {
         this.deadline.set(deadline);
+    }
+    public void setLevel(String level) {
+        this.level.set(level);
     }
 
 

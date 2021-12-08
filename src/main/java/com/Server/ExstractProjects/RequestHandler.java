@@ -3,8 +3,8 @@ package com.Server.ExstractProjects;
 import com.Server.dataBase.Command;
 import com.Server.dataBase.Database;
 import com.Server.server.ConnectionTCP;
-import com.example.it.Project;
-import com.example.it.User;
+import com.example.it.model.Project;
+import com.example.it.model.User;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

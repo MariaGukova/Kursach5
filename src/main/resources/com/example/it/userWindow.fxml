@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="850.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.it.ControllerUserWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="850.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.it.ControllerUserWindow">
    <children>
       <AnchorPane layoutX="1.0" layoutY="87.0" prefHeight="355.0" prefWidth="832.0" style="-fx-background-color: #fafafa;">
          <children>
@@ -19,7 +23,7 @@
             </TableView>
             <TextField fx:id="TextFieldSearch" layoutX="10.0" layoutY="88.0" prefHeight="25.0" prefWidth="198.0" />
             <Button fx:id="Search" layoutX="76.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Поиск" />
-            <Button fx:id="Exit" layoutX="76.0" layoutY="252.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Выход" />
+            <Button fx:id="Exit" layoutX="76.0" layoutY="252.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Назад" />
          </children>
       </AnchorPane>
       <Label layoutX="242.0" layoutY="20.0" prefHeight="46.0" prefWidth="369.0" text="Таблица IT проектов" textAlignment="CENTER" textFill="#f8f6f6">

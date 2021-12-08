@@ -4,6 +4,7 @@ import com.Server.ExtractUsers.UserProperty;
 import com.Server.dataBase.Command;
 import com.Server.dataBase.Database;
 import com.Server.server.ConnectionTCP;
+import com.example.it.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -207,9 +208,7 @@ public class ControllerUsersTable {
             }
             else {
                 //Platform.runLater(() -> ex.setText("Such project doesn't exist"));
-
             }
-
         }
         return userSearches;
     }

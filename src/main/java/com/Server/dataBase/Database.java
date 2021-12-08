@@ -1,8 +1,8 @@
 package com.Server.dataBase;
 
 import com.Server.constants.Constants;
-import com.example.it.Project;
-import com.example.it.User;
+import com.example.it.model.Project;
+import com.example.it.model.User;
 import com.example.it.model.Admin;
 
 import java.io.BufferedWriter;
@@ -111,13 +111,14 @@ public class Database {
     public void addProject(Project project) {//добавление проекта
         try (Connection connection = DatabaseConnectionProvider.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(// позволяет вставлять значения
-                      " insert into "+Constants.PROJECTS_TABLE +" (name, customer, cost, deadline)"
-                             + " values (?, ?, ?, ?)")) {
+                      " insert into "+Constants.PROJECTS_TABLE +" (name, customer, cost, deadline, level )"
+                             + " values (?, ?, ?, ?, ?)")) {
 
             preparedStatement.setString(1, project.getName());
             preparedStatement.setString(2, project.getCustomer());
             preparedStatement.setString(3, project.getCost());
             preparedStatement.setString(4, project.getDeadline());
+            preparedStatement.setString(5, project.getLevel());
 
             preparedStatement.execute();//выполняем запрос
 
@@ -134,7 +135,7 @@ public class Database {
              Statement statement = connection.createStatement()) { //выполняет запрос
 
             ResultSet resultSet = statement.executeQuery("SELECT " + Constants.PROJECT_ID + " , " + Constants.PROJECT_NAME + " , " + Constants.CUSTOMER + " , "
-                    + Constants.COST + " , " + Constants.DEADLINE + " FROM " + Constants.PROJECTS_TABLE);
+                    + Constants.COST + " , " + Constants.DEADLINE + " , " + Constants.LEVEL + " FROM " + Constants.PROJECTS_TABLE);
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -142,9 +143,10 @@ public class Database {
                 String customer = resultSet.getString("customer");
                 String cost = resultSet.getString("cost");
                 String deadline = resultSet.getString("deadline");
+                String level = resultSet.getString("level");
 
 
-                Project project = new Project(id, name, customer, cost, deadline);
+                Project project = new Project(id, name, customer, cost, deadline, level);
 
                 projects.add(project);
 
@@ -161,13 +163,14 @@ public class Database {
         public void updateProject(Project project) {//обновление проектов после редактирования
             try (Connection connection = DatabaseConnectionProvider.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(
-                         "UPDATE "+Constants.PROJECTS_TABLE +" SET name  = ?, customer = ? , cost = ?, deadline = ? WHERE id = ?")) {
+                         "UPDATE "+Constants.PROJECTS_TABLE +" SET name  = ?, customer = ? , cost = ?, deadline = ?, level = ? WHERE id = ?")) {
 
                 preparedStatement.setString(1, project.getName());
                 preparedStatement.setString(2, project.getCustomer());
                 preparedStatement.setString(3, project.getCost());
                 preparedStatement.setString(4, project.getDeadline());
-                preparedStatement.setInt(5, project.getId());
+                preparedStatement.setString(5, project.getLevel());
+                preparedStatement.setInt(6, project.getId());
 
                 preparedStatement.execute();
 
@@ -292,9 +295,11 @@ public class Database {
                     String customer =resultSet.getString(3);
                     String cost = resultSet.getString(4);
                     String deadline = resultSet.getString(5);
-                    data.add(id + "\t\t" + name + "\t\t\t\t" +customer + "\t\t\t" + cost + "\t\t\t\t" + deadline);
+                    String level = resultSet.getString(6);
+                    data.add(id + "\t\t" + name + "\t\t\t\t" +customer + "\t\t\t" + cost + "\t\t\t\t" + deadline + "\t\t\t\t" + level);
                 }
-                head.add("ID\t\tName\t\t\t\tCost\t\tCustomer\t\tDeadline\n--------------------------------------------------------------------------------------------------------------------------------------------------");
+                head.add("----------------------------------------------------------------------------------------------------------------");
+                head.add("ID\t\tName\t\t\t\tCost\t\t\t\tCustomer\t\t\tDeadline\t\t\tReadiness level\n--------------------------------------------------------------------------------------------------------------------------------------------------");
                 writeToFile(head, "report.txt");
                 writeToFile(data, "report.txt");
                 resultSet.close();

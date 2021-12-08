@@ -22,6 +22,7 @@ public class Constants {
     public static final String CUSTOMER = "customer";
     public static final String COST = "cost";
     public static final String DEADLINE = "deadline";
+    public static final String LEVEL = "level";
 
     public static final String ADMIN_TABLE = "admin";
     public static final String ADMIN_ID="id";

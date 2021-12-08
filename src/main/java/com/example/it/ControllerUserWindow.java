@@ -3,6 +3,7 @@ package com.example.it;
 import com.Server.ExstractProjects.ProjectProperty;
 import com.Server.dataBase.Command;
 import com.Server.server.ConnectionTCP;
+import com.example.it.model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -84,7 +86,7 @@ public class ControllerUserWindow {
             Stage primaryStage = new Stage();
             Parent path = null;
             try {
-                path = FXMLLoader.load(getClass().getResource("authorization.fxml"));
+                path = FXMLLoader.load(getClass().getResource("userChoose.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -95,6 +97,29 @@ public class ControllerUserWindow {
 
         });
 
+        Search.setOnAction(actionEvent -> {
+            searchProject();
+        });
+
+    }
+    private LinkedList<ProjectProperty> searchProject(){
+        String search = TextFieldSearch.getText();
+        System.out.println("1");
+        LinkedList<ProjectProperty> projectSearches = new LinkedList<>();
+        System.out.println("2");
+        for(ProjectProperty project : tableProjectProperties){
+            System.out.println("3");
+            if(search.equals(project.getName())){
+                System.out.println("4");
+                projectSearches.add(project);
+            }
+            else {
+               // Platform.runLater(() -> ex.setText("Such project doesn't exist"));
+
+            }
+
+        }
+        return projectSearches;
     }
 
 }

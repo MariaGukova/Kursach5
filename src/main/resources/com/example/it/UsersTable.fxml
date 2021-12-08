@@ -23,8 +23,8 @@
             </TableView>
             <TextField fx:id="TextFieldSearch" layoutX="12.0" layoutY="165.0" prefHeight="25.0" prefWidth="136.0" />
             <Button fx:id="Search" layoutX="37.0" layoutY="211.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Поиск" />
-            <Button fx:id="Exit" layoutX="40.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Выход" />
-            <Button fx:id="Edit" layoutX="725.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Редактировать" />
+            <Button fx:id="Exit" layoutX="40.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Назад" />
+            <Button fx:id="Edit" layoutX="725.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Добавить" />
             <Button fx:id="Delete" layoutX="34.0" layoutY="119.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Удалить" />
             <Button fx:id="Add" layoutX="34.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Просмотреть" />
             <TextField fx:id="nameField" layoutX="206.0" layoutY="307.0" prefHeight="25.0" prefWidth="106.0" />
