@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -133,6 +134,9 @@ public class ControllerUsersTable {
             connectionTCP.writeObject(Command.CREATE1);
             connectionTCP.writeObject(user);
         });
+        Search.setOnAction(actionEvent -> {
+            searchUser();
+        });
 
        /* Update.setOnAction(event -> {
             try {
@@ -190,5 +194,25 @@ public class ControllerUsersTable {
 
         });
     }
+    private LinkedList<UserProperty> searchUser(){
+        String search = TextFieldSearch.getText();
+        System.out.println("1");
+        LinkedList<UserProperty> userSearches = new LinkedList<>();
+        System.out.println("2");
+        for(UserProperty user : tableUserProperties){
+            System.out.println("3");
+            if(search.equals(user.getName())){
+                System.out.println("4");
+                userSearches.add(user);
+            }
+            else {
+                //Platform.runLater(() -> ex.setText("Such project doesn't exist"));
+
+            }
+
+        }
+        return userSearches;
+    }
+
 
 }

@@ -1,10 +1,14 @@
 package com.Server.dataBase;
 
 import com.Server.constants.Constants;
-import com.example.it.model.Admin;
 import com.example.it.Project;
 import com.example.it.User;
+import com.example.it.model.Admin;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -270,6 +274,56 @@ public class Database {
 
 
     }
+
+    public static void filewriter() throws ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        ResultSet resultSet = null;
+        List<String> data = new ArrayList<String>();
+        List<String> head = new ArrayList<String>();
+        try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+             Statement statement = connection.createStatement()
+        ) {
+            String sqlQuery = "select * from " + Constants.PROJECTS_TABLE;
+            try {
+                resultSet = statement.executeQuery(sqlQuery);
+                while (resultSet.next()) {
+                    String id = String.valueOf(resultSet.getInt(1));
+                    String name = resultSet.getString(2);
+                    String customer =resultSet.getString(3);
+                    String cost = resultSet.getString(4);
+                    String deadline = resultSet.getString(5);
+                    data.add(id + "\t\t" + name + "\t\t\t\t" +customer + "\t\t\t" + cost + "\t\t\t\t" + deadline);
+                }
+                head.add("ID\t\tName\t\t\t\tCost\t\tCustomer\t\tDeadline\n--------------------------------------------------------------------------------------------------------------------------------------------------");
+                writeToFile(head, "report.txt");
+                writeToFile(data, "report.txt");
+                resultSet.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                System.out.println("Запрос " + sqlQuery + " был обработан!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private static void writeToFile(java.util.List<String> list, String path) {
+        BufferedWriter out = null;
+        try {
+            File file = new File(path);
+            out = new BufferedWriter(new FileWriter(file, true));
+            for (String s : list) {
+                out.write(s);
+                out.newLine();
+            }
+            out.close();
+        } catch (IOException e) {
+        }
+    }
+
+
 }
 
 

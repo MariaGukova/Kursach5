@@ -1,5 +1,6 @@
 package com.example.it;
 
+import com.Server.dataBase.Database;
 import com.Server.ExstractProjects.ProjectProperty;
 import com.Server.dataBase.Command;
 import com.Server.server.ConnectionTCP;
@@ -100,6 +101,15 @@ public class ControllerITTable {
 
         Search.setOnAction(actionEvent -> {
             searchProject();
+        });
+
+
+        Import.setOnAction(actionEvent -> {
+            try {
+                Database.filewriter();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         });
 /*
             System.out.println("1");
@@ -222,14 +232,7 @@ public class ControllerITTable {
             System.exit(0);
 
         });
-        /*Import.setOnAction(event -> {
-            String name = projectsTable.getSelectionModel().getSelectedCells().get(0).getRow();
-            try {
-                FileAddData.fileAddData.addInFile(String.getName(name);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });*/
+
 
     }
     private LinkedList<ProjectProperty> searchProject(){
