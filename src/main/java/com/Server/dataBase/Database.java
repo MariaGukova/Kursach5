@@ -2,8 +2,8 @@ package com.Server.dataBase;
 
 import com.Server.constants.Constants;
 import com.example.it.model.Admin;
-import com.example.it.model.Project;
-import com.example.it.model.User;
+import com.example.it.Project;
+import com.example.it.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -124,30 +124,29 @@ public class Database {
 
     public List<Project> getAllProjects() {//просмотр проектов
         List<Project> projects = new ArrayList<>();
-        System.out.println(" !1");
+
         try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
 
              Statement statement = connection.createStatement()) { //выполняет запрос
-            System.out.println(" !2");
 
             ResultSet resultSet = statement.executeQuery("SELECT " + Constants.PROJECT_ID + " , " + Constants.PROJECT_NAME + " , " + Constants.CUSTOMER + " , "
-                    + Constants.COST + " ," + Constants.DEADLINE + " FROM " + Constants.PROJECTS_TABLE);
-            System.out.println(" !3");
+                    + Constants.COST + " , " + Constants.DEADLINE + " FROM " + Constants.PROJECTS_TABLE);
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String customer = resultSet.getString("customer");
                 String cost = resultSet.getString("cost");
                 String deadline = resultSet.getString("deadline");
-                System.out.println(" !4");
+
 
                 Project project = new Project(id, name, customer, cost, deadline);
-                System.out.println(" !5");
+
                 projects.add(project);
-                System.out.println(" !6");
+
             }
         } catch (SQLException e) {
-            System.out.println(" !ебууууууууууут");
+
             e.printStackTrace();
         }
 
@@ -158,13 +157,13 @@ public class Database {
         public void updateProject(Project project) {//обновление проектов после редактирования
             try (Connection connection = DatabaseConnectionProvider.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(
-                         "UPDATE "+Constants.PROJECTS_TABLE +" SET name  = ?, customer = ? ,cost = ?,deadline = ?   WHERE id = ?")) {
+                         "UPDATE "+Constants.PROJECTS_TABLE +" SET name  = ?, customer = ? , cost = ?, deadline = ? WHERE id = ?")) {
 
                 preparedStatement.setString(1, project.getName());
                 preparedStatement.setString(2, project.getCustomer());
                 preparedStatement.setString(3, project.getCost());
                 preparedStatement.setString(4, project.getDeadline());
-
+                preparedStatement.setInt(5, project.getId());
 
                 preparedStatement.execute();
 
@@ -195,8 +194,9 @@ public class Database {
     public void addUser (User user) {//добавление пользователя
         try (Connection connection = DatabaseConnectionProvider.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(// позволяет вставлять значения
-                     "insert into"+Constants.USERS_TABLE +"(name, surname, login, password)"
-                             + " values (?, ?, ?, ?)")) {
+                     "insert into "+Constants.USERS_TABLE +"( name, surname, login, password)"
+                             + " values ( ?, ?, ?, ?)")) {
+
 
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
@@ -213,30 +213,22 @@ public class Database {
 
     public List<User> getAllUsers() {//просмотр пользователей
             List<User> users = new ArrayList<>();
-        System.out.println(" !1");
+
         try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
-
              Statement statement = connection.createStatement()) { //выполняет запрос
-            System.out.println(" !2");
-
             ResultSet resultSet = statement.executeQuery("SELECT " + Constants.ID + " , " + Constants.NAME + " , " + Constants.SURNAME + " , "
                     + Constants.LOGIN + " ," + Constants.PASSWORD + " FROM " + Constants.USERS_TABLE);
-            System.out.println(" !3");
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("password");
-                System.out.println(" !4");
 
-                    User user = new User(id, name, surname, login, password);
-                System.out.println(" !5");
+                User user = new User(id, name, surname, login, password);
                 users.add(user);
-                System.out.println(" !6");
             }
         } catch (SQLException e) {
-            System.out.println(" !ебууууууууууут");
             e.printStackTrace();
         }
 
@@ -261,8 +253,6 @@ public class Database {
             e.printStackTrace();
         }
     }
-
-
 
 
     public void deleteUserByID(int id) {//удаление пользователя

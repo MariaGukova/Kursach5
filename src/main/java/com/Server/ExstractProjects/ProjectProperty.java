@@ -1,6 +1,6 @@
 package com.Server.ExstractProjects;
 
-import com.example.it.model.Project;
+import com.example.it.Project;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

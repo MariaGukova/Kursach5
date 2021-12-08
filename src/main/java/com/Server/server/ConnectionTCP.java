@@ -6,9 +6,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ConnectionTCP {
-    private final Socket socket;
-    private final ObjectInputStream inputStream;
-    private final ObjectOutputStream outputStream;
+    private Socket socket ;
+    private ObjectInputStream inputStream;
+    private ObjectOutputStream outputStream;
 
     public ConnectionTCP(Socket socket) {
         this.socket = socket;

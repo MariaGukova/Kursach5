@@ -1,6 +1,6 @@
 package com.Server.ExtractUsers;
 
-import com.example.it.model.User;
+import com.example.it.User;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

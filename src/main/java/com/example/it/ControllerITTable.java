@@ -1,9 +1,8 @@
 package com.example.it;
 
+import com.Server.ExstractProjects.ProjectProperty;
 import com.Server.dataBase.Command;
 import com.Server.server.ConnectionTCP;
-import com.Server.ExstractProjects.ProjectProperty;
-import com.example.it.model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +14,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -37,6 +37,7 @@ public class ControllerITTable {
 
     @FXML
     private TextField TextFieldSearch;
+
 
     @FXML
     private TableColumn<ProjectProperty,String> cost;
@@ -81,14 +82,10 @@ public class ControllerITTable {
     private static ObservableList<ProjectProperty> tableProjectProperties = FXCollections.observableArrayList();// вызовет конструктор 0
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
 
-        try {
-            connectionTCP = new ConnectionTCP(new Socket("localhost", 8888));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
+        connectionTCP = new ConnectionTCP(new Socket("localhost", 8888));
+
 
         ID.setCellValueFactory(cellValue -> cellValue.getValue().idProperty().asObject());
         name.setCellValueFactory(cellValue -> cellValue.getValue().nameProperty());
@@ -97,17 +94,51 @@ public class ControllerITTable {
         deadline.setCellValueFactory(cellValue -> cellValue.getValue().deadlineProperty());
 
 
+        Search.setOnAction(actionEvent -> {
+            searchProject();
+        });
+/*
+            System.out.println("1");
+            FilteredList<ProjectProperty> filteredData = new FilteredList<>(tableProjectProperties, p -> true);
+            System.out.println("2");
+            TextFieldSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+                System.out.println("3");
+                filteredData.setPredicate(projectProperty -> {
+                    System.out.println("4");
+                    // If filter text is empty, display all persons.
+                    if (newValue == null || newValue.isEmpty()) {
+                        System.out.println("5");
+                        return true;
+                    }
+                    System.out.println("6");
+
+                    // Compare first name and last name of every person with filter text.
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    System.out.println("7");
+
+                    if (projectProperty.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        System.out.println("8");
+                        return true; // Filter matches first name.
+                    } else if (projectProperty.getCost().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true; // Filter matches last name.
+                    }
+                    return false; // Does not match.
+                });
+            });
+
+            SortedList<ProjectProperty> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(projectsTable.comparatorProperty());
+            projectsTable.setItems(sortedData);
+
+        });*/
+
+
         read.setOnAction(actionEvent -> {
 
-            System.out.println(" !1");
             tableProjectProperties.clear();// чтобы не добавлять каждый раз к существующему списку
-            System.out.println("меня");
             connectionTCP.writeObject(Command.READ);
-            System.out.println("ебет");
             List<Project> projects = (List<Project>) connectionTCP.readObject();
-            System.out.println("курсовая");
             for (int i = 0; i < projects.size(); i++) {
-                System.out.println(" !");
                 ProjectProperty e = new ProjectProperty(projects.get(i));
                 tableProjectProperties.add(e);
 
@@ -138,9 +169,9 @@ public class ControllerITTable {
             connectionTCP.writeObject(project);
         });
 
-        Update.setOnAction(event -> {
+        /*Update.setOnAction(event -> {
             try {
-                    Project project = projectsTable.getSelectionModel().getSelectedItem().toProject();
+                Project project = projectsTable.getSelectionModel().getSelectedItem().toProject();
 
                 String name = nameField.getText();
                 if (!name.isEmpty()) {
@@ -160,8 +191,8 @@ public class ControllerITTable {
                 }
 
                 nameField.setText("");
-                costField.setText("");
                 customerField.setText("");
+                costField.setText("");
                 deadlineField.setText("");
 
 
@@ -170,7 +201,7 @@ public class ControllerITTable {
             } catch (NullPointerException e) {
 
             }
-        });
+        });*/
         Delete.setOnAction(event -> {
             try {
                 int id = projectsTable.getSelectionModel().getSelectedItem().getId();
@@ -188,6 +219,20 @@ public class ControllerITTable {
 
         });
 
+
+
+
+    }
+    private LinkedList<ProjectProperty> searchProject(){
+        String search = TextFieldSearch.getText();
+        LinkedList<ProjectProperty> projectSearches = new LinkedList<>();
+        for(ProjectProperty project : tableProjectProperties){
+            if(search.equals(project.getName())){
+                projectSearches.add(project);
+            }
+
+        }
+        return projectSearches;
     }
 
 }

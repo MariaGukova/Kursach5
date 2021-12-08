@@ -3,7 +3,6 @@ package com.example.it;
 import com.Server.ExstractProjects.ProjectProperty;
 import com.Server.dataBase.Command;
 import com.Server.server.ConnectionTCP;
-import com.example.it.model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,14 +53,10 @@ public class ControllerUserWindow {
     private static ObservableList<ProjectProperty> tableProjectProperties = FXCollections.observableArrayList();// вызовет конструктор 0
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
 
-        try {
             connectionTCP = new ConnectionTCP(new Socket("localhost", 8888));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
+
 
         ID.setCellValueFactory(cellValue -> cellValue.getValue().idProperty().asObject());
         name.setCellValueFactory(cellValue -> cellValue.getValue().nameProperty());
@@ -69,13 +64,9 @@ public class ControllerUserWindow {
         cost.setCellValueFactory(cellValue -> cellValue.getValue().customerProperty());
         deadline.setCellValueFactory(cellValue -> cellValue.getValue().deadlineProperty());
 
-        System.out.println(" !1");
         tableProjectProperties.clear();// чтобы не добавлять каждый раз к существующему списку
-        System.out.println("меня");
         connectionTCP.writeObject(Command.READ);
-        System.out.println("ебет");
         List<Project> projects = (List<Project>) connectionTCP.readObject();
-        System.out.println("курсовая");
         for (int i = 0; i < projects.size(); i++) {
             System.out.println(" !");
             ProjectProperty e = new ProjectProperty(projects.get(i));

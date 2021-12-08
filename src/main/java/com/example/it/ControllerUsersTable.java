@@ -2,8 +2,8 @@ package com.example.it;
 
 import com.Server.ExtractUsers.UserProperty;
 import com.Server.dataBase.Command;
+import com.Server.dataBase.Database;
 import com.Server.server.ConnectionTCP;
-import com.example.it.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -82,14 +82,8 @@ public class ControllerUsersTable {
 
 
     @FXML
-    void initialize() {
-        
-        try {
-            connectionTCP = new ConnectionTCP(new Socket("localhost", 8888));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
+    void initialize() throws IOException {
+        connectionTCP = new ConnectionTCP(new Socket("localhost", 8888));
 
         ID.setCellValueFactory(cellValue -> cellValue.getValue().idProperty().asObject());
         name.setCellValueFactory(cellValue -> cellValue.getValue().nameProperty());
@@ -100,24 +94,20 @@ public class ControllerUsersTable {
 
         Add.setOnAction(actionEvent -> {
 
-            System.out.println(" !1");
             tableUserProperties.clear();// чтобы не добавлять каждый раз к существующему списку
-            System.out.println("меня");
-            connectionTCP.writeObject(Command.READ);
-            System.out.println("ебет");
+            connectionTCP.writeObject(Command.READ1);
+            //Database db = new Database();
+            //List<User> users = db.getAllUsers();
             List<User> users = (List<User>) connectionTCP.readObject();
-            System.out.println("курсовая");
             for (int i = 0; i < users.size(); i++) {
-                System.out.println(" !");
                 UserProperty e = new UserProperty(users.get(i));
+
                 tableUserProperties.add(e);
 
             }
             usersTable.setItems(tableUserProperties);// устанавливаем значение обсёрвабл листа в таблицу
 
         });
-
-
 
         Edit.setOnAction(event -> {
             String name = nameField.getText();
@@ -137,11 +127,14 @@ public class ControllerUsersTable {
                     login,
                     password);
 
-            connectionTCP.writeObject(Command.CREATE);
+
+            //Database db = new Database();
+            //db.addUser(user);
+            connectionTCP.writeObject(Command.CREATE1);
             connectionTCP.writeObject(user);
         });
 
-        Update.setOnAction(event -> {
+       /* Update.setOnAction(event -> {
             try {
                 User user = usersTable.getSelectionModel().getSelectedItem().toUser();
 
@@ -168,18 +161,22 @@ public class ControllerUsersTable {
                 passwordField.setText("");
 
 
-                connectionTCP.writeObject(Command.UPDATE);
+                Database db = new Database();
+                db.updateUser(user);
+                connectionTCP.writeObject(Command.UPDATE1);
                 connectionTCP.writeObject(user);
             } catch (NullPointerException e) {
 
             }
         });
-
+*/
 
         Delete.setOnAction(event -> {
             try {
                 int id = usersTable.getSelectionModel().getSelectedItem().getId();
-                connectionTCP.writeObject(Command.DELETE);
+                Database db = new Database();
+                db.deleteUserByID(id);
+                connectionTCP.writeObject(Command.DELETE1);
                 connectionTCP.writeObject(id);
             } catch (NullPointerException e) {// если 0
 

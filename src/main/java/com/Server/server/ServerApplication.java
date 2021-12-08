@@ -8,7 +8,8 @@ import java.net.Socket;
 
 public class ServerApplication {
     public void run() {
-        try (ServerSocket serverSocket = new ServerSocket(8888)) {
+        try (ServerSocket serverSocket = new ServerSocket(8888)){
+
             System.out.println("The multi-threaded server has started");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -19,6 +20,7 @@ public class ServerApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
 
