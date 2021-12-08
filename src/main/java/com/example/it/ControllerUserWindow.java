@@ -55,7 +55,7 @@ public class ControllerUserWindow {
     @FXML
     void initialize() throws IOException {
 
-            connectionTCP = new ConnectionTCP(new Socket("localhost", 8888));
+        connectionTCP = new ConnectionTCP(new Socket("localhost", 8888));
 
 
         ID.setCellValueFactory(cellValue -> cellValue.getValue().idProperty().asObject());
@@ -68,7 +68,6 @@ public class ControllerUserWindow {
         connectionTCP.writeObject(Command.READ);
         List<Project> projects = (List<Project>) connectionTCP.readObject();
         for (int i = 0; i < projects.size(); i++) {
-            System.out.println(" !");
             ProjectProperty e = new ProjectProperty(projects.get(i));
             tableProjectProperties.add(e);
 

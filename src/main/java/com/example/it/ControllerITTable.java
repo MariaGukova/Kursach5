@@ -3,13 +3,11 @@ package com.example.it;
 import com.Server.ExstractProjects.ProjectProperty;
 import com.Server.dataBase.Command;
 import com.Server.server.ConnectionTCP;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -57,6 +55,9 @@ public class ControllerITTable {
     private TextField costField;
 
     @FXML
+    private Button Import;
+
+    @FXML
     private TextField customerField;
 
     @FXML
@@ -76,6 +77,9 @@ public class ControllerITTable {
 
     @FXML
     private Button Edit;
+    @FXML
+    private Label ex;
+
 
 
     private ConnectionTCP connectionTCP;
@@ -218,17 +222,30 @@ public class ControllerITTable {
             System.exit(0);
 
         });
-
-
-
+        /*Import.setOnAction(event -> {
+            String name = projectsTable.getSelectionModel().getSelectedCells().get(0).getRow();
+            try {
+                FileAddData.fileAddData.addInFile(String.getName(name);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });*/
 
     }
     private LinkedList<ProjectProperty> searchProject(){
         String search = TextFieldSearch.getText();
+        System.out.println("1");
         LinkedList<ProjectProperty> projectSearches = new LinkedList<>();
+        System.out.println("2");
         for(ProjectProperty project : tableProjectProperties){
+            System.out.println("3");
             if(search.equals(project.getName())){
+                System.out.println("4");
                 projectSearches.add(project);
+            }
+            else {
+                Platform.runLater(() -> ex.setText("Such project doesn't exist"));
+
             }
 
         }

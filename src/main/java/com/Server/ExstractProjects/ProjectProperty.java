@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class ProjectProperty {
+
     private IntegerProperty id;
     private StringProperty name;
     private  StringProperty customer;
@@ -22,6 +23,7 @@ public class ProjectProperty {
         deadline = new SimpleStringProperty(project.getDeadline());
 
     }
+
 
 
     public Project toProject() {
