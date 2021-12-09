@@ -1,6 +1,7 @@
 package com.Server.dataBase;
 
 import com.Server.constants.Constants;
+import com.example.it.model.Otchet;
 import com.example.it.model.Project;
 import com.example.it.model.User;
 import com.example.it.model.Admin;
@@ -108,17 +109,19 @@ public class Database {
         return resSet;
     }
 
+
     public void addProject(Project project) {//добавление проекта
         try (Connection connection = DatabaseConnectionProvider.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(// позволяет вставлять значения
-                      " insert into "+Constants.PROJECTS_TABLE +" (name, customer, cost, deadline, level )"
-                             + " values (?, ?, ?, ?, ?)")) {
+                      " insert into "+Constants.PROJECTS_TABLE +" (id, name, customer, cost, deadline, level )"
+                             + " values (?, ?, ?, ?, ?, ?)")) {
 
-            preparedStatement.setString(1, project.getName());
-            preparedStatement.setString(2, project.getCustomer());
-            preparedStatement.setString(3, project.getCost());
-            preparedStatement.setString(4, project.getDeadline());
-            preparedStatement.setString(5, project.getLevel());
+            preparedStatement.setInt(1, project.getId());
+            preparedStatement.setString(2, project.getName());
+            preparedStatement.setString(3, project.getCustomer());
+            preparedStatement.setString(4, project.getCost());
+            preparedStatement.setString(5, project.getDeadline());
+            preparedStatement.setString(6, project.getLevel());
 
             preparedStatement.execute();//выполняем запрос
 
@@ -277,6 +280,29 @@ public class Database {
 
 
     }
+    public List<Otchet> getOtchet() {//просмотр пользователей
+        List<Otchet> otchets = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+             Statement statement = connection.createStatement()) { //выполняет запрос
+            ResultSet resultSet = statement.executeQuery("SELECT " + Constants.OTHET_NAME + " , " + Constants.RISKS + " , "
+                    + Constants.PARTICIPANTS + " ," + Constants.OTCHET_DEADLINE + " FROM " + Constants.OTCHET);
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String risks = resultSet.getString("risks");
+                String participants = resultSet.getString("participants");
+                String deadline = resultSet.getString("deadline");
+
+                Otchet user = new Otchet(name, risks, participants, deadline);
+                otchets.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return otchets;
+    }
+
 
     public static void filewriter() throws ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
@@ -296,12 +322,47 @@ public class Database {
                     String cost = resultSet.getString(4);
                     String deadline = resultSet.getString(5);
                     String level = resultSet.getString(6);
-                    data.add(id + "\t\t" + name + "\t\t\t\t" +customer + "\t\t\t" + cost + "\t\t\t\t" + deadline + "\t\t\t\t" + level);
+                    data.add(id + "\t\t" + name + "\t\t\t\t" +customer + "\t\t" + cost + "\t\t\t\t" + deadline + "\t\t\t\t" + level);
                 }
-                head.add("----------------------------------------------------------------------------------------------------------------");
-                head.add("ID\t\tName\t\t\t\tCost\t\t\t\tCustomer\t\t\tDeadline\t\t\tReadiness level\n--------------------------------------------------------------------------------------------------------------------------------------------------");
-                writeToFile(head, "report.txt");
-                writeToFile(data, "report.txt");
+                head.add("\n");
+                head.add("ID\t\tName\t\t\t\tCost\t\t\t\tCustomer\t\t\tDeadline\t\t\tReadiness level\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                writeToFile(head, "AdminOtchet.txt");
+                writeToFile(data, "AdminOtchet.txt");
+                resultSet.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                System.out.println("Запрос " + sqlQuery + " был обработан!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public static void filewriter1() throws ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        ResultSet resultSet = null;
+        List<String> data = new ArrayList<String>();
+        List<String> head = new ArrayList<String>();
+        try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+             Statement statement = connection.createStatement()
+        ) {
+            String sqlQuery = "select * from " + Constants.OTCHET;
+            try {
+                resultSet = statement.executeQuery(sqlQuery);
+                while (resultSet.next()) {
+
+                    String name = resultSet.getString(1);
+                    String risks =resultSet.getString(2);
+                    String participants = resultSet.getString(4);
+                    String deadline = resultSet.getString(4);
+
+                    data.add(name + "\t\t\t" +risks + "\t\t\t" + participants + "\t\t\t\t" + deadline);
+                }
+                head.add("\n");
+                head.add("Name\t\t\t\tRisks\t\t\t\tParticipants\t\t\tDeadline\n--------------------------------------------------------------------------------------------------------------------------------------------------");
+                writeToFile(head, "UserOtchet.txt");
+                writeToFile(data, "UserOtchet.txt");
                 resultSet.close();
                 statement.close();
             } catch (SQLException e) {

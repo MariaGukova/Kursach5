@@ -24,6 +24,12 @@ public class Constants {
     public static final String DEADLINE = "deadline";
     public static final String LEVEL = "level";
 
+    public static final String OTCHET = "otchet";
+    public static final String OTHET_NAME="name";
+    public static final String RISKS = "risks";
+    public static final String PARTICIPANTS = "participants";
+    public static final String OTCHET_DEADLINE = "deadline";
+
     public static final String ADMIN_TABLE = "admin";
     public static final String ADMIN_ID="id";
     public static final String ADMIN_LOGIN = "login";

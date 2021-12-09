@@ -28,14 +28,15 @@
             <Button fx:id="Edit" layoutX="737.0" layoutY="282.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Добавить" />
             <Button fx:id="Delete" layoutX="21.0" layoutY="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Удалить" />
             <Button fx:id="read" layoutX="21.0" layoutY="57.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Просмотреть" />
-            <TextField fx:id="nameField" layoutX="140.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
-            <TextField fx:id="customerField" layoutX="356.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
-            <TextField fx:id="costField" layoutX="249.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
-            <TextField fx:id="deadlineField" layoutX="463.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="nameField" layoutX="215.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="customerField" layoutX="435.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="costField" layoutX="326.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="deadlineField" layoutX="543.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
             <Label fx:id="ex" layoutX="25.0" layoutY="263.0" prefHeight="11.0" prefWidth="45.0" />
             <Button fx:id="Import" layoutX="21.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Отчёт" />
-            <TextField fx:id="levelField" layoutX="574.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="levelField" layoutX="653.0" layoutY="307.0" prefHeight="25.0" prefWidth="68.0" />
             <Button fx:id="update" layoutX="737.0" layoutY="334.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Редактировать" />
+            <TextField fx:id="idField" layoutX="148.0" layoutY="307.0" prefHeight="25.0" prefWidth="51.0" />
          </children>
       </AnchorPane>
       <Label layoutX="239.0" layoutY="14.0" prefHeight="46.0" prefWidth="372.0" text="Таблица IT проектов" textAlignment="CENTER" textFill="#f8f6f6">

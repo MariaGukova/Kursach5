@@ -11,7 +11,7 @@
          <children>
             <Button fx:id="Exit" layoutX="738.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Назад" />
          </children></AnchorPane>
-      <Label layoutX="182.0" layoutY="35.0" prefHeight="46.0" prefWidth="487.0" text="Анализ стоимости проектов" textAlignment="CENTER" textFill="#f8f6f6">
+      <Label layoutX="179.0" layoutY="35.0" prefHeight="46.0" prefWidth="492.0" text="Анализ стоимости проектов" textAlignment="CENTER" textFill="#f8f6f6">
          <font>
             <Font name="Century" size="36.0" />
          </font>

@@ -11,32 +11,32 @@
    <children>
       <AnchorPane layoutY="106.0" prefHeight="324.0" prefWidth="850.0" style="-fx-background-color: #fafafa;">
          <children>
-            <Button fx:id="UsersTable" layoutX="25.0" layoutY="186.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="24.0" prefWidth="177.0" text="Таблица пользователей">
+            <Button fx:id="UsersTable" layoutX="25.0" layoutY="186.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="35.0" prefWidth="196.0" text="Таблица пользователей">
                <font>
-                  <Font name="Times New Roman" size="15.0" />
+                  <Font name="Times New Roman" size="17.0" />
                </font>
             </Button>
-            <Button fx:id="ProjectsTable" layoutX="309.0" layoutY="260.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="28.0" prefWidth="177.0" text="Таблица IT проектов">
+            <Button fx:id="ProjectsTable" layoutX="306.0" layoutY="237.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="35.0" prefWidth="196.0" text="Таблица IT проектов">
                <font>
-                  <Font name="Times New Roman" size="15.0" />
+                  <Font name="Times New Roman" size="17.0" />
                </font>
             </Button>
-            <ImageView fitHeight="173.0" fitWidth="148.0" layoutX="39.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="157.0" fitWidth="158.0" layoutX="39.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@usrstable.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="148.0" fitWidth="216.0" layoutX="292.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="157.0" fitWidth="237.0" layoutX="292.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@projects.png" />
                </image>
             </ImageView>
-            <Button fx:id="Analysis" layoutX="588.0" layoutY="186.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="28.0" prefWidth="218.0" text="Уровень готовности проектов">
+            <Button fx:id="Analysis" layoutX="573.0" layoutY="186.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="35.0" prefWidth="237.0" text="Анализ уровня готовности">
                <font>
-                  <Font name="Times New Roman" size="15.0" />
+                  <Font name="Times New Roman" size="17.0" />
                </font>
             </Button>
-            <ImageView fitHeight="148.0" fitWidth="237.0" layoutX="579.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="157.0" fitWidth="253.0" layoutX="565.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@analysis.png" />
                </image>

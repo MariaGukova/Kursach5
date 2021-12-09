@@ -88,6 +88,9 @@ public class ControllerITTable {
     private Button Edit;
     @FXML
     private Label ex;
+    @FXML
+    private TextField idField;
+
 
     @FXML
     private Button update;
@@ -206,6 +209,7 @@ public class ControllerITTable {
             try {
                 Project project = projectsTable.getSelectionModel().getSelectedItem().toProject();
 
+
                 String name = nameField.getText();
                 if (!name.isEmpty()) {
                     project.setName(name);
@@ -227,6 +231,7 @@ public class ControllerITTable {
                     project.setLevel(level);
                 }
 
+                idField.setText("");
                 nameField.setText("");
                 customerField.setText("");
                 costField.setText("");
@@ -241,12 +246,14 @@ public class ControllerITTable {
         });
 
         Edit.setOnAction(event -> {
+            Integer id = Integer.valueOf(idField.getText());
             String name = nameField.getText();
             String customer = customerField.getText();
             String cost = costField.getText();
             String deadline = deadlineField.getText();
             String level = levelField.getText();
 
+            idField.setText("");
             nameField.setText("");
             customerField.setText("");
             costField.setText("");
@@ -254,6 +261,7 @@ public class ControllerITTable {
             levelField.setText("");
 
             Project project = new Project(
+                    id,
             name,
             customer,
             cost,

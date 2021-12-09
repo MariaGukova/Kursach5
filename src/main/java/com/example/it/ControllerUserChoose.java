@@ -28,6 +28,9 @@ public class ControllerUserChoose {
     private Button Exit;
 
     @FXML
+    private Button otchet;
+
+    @FXML
     void initialize() {
         Analysis.setOnAction(actionEvent -> {
 
@@ -64,6 +67,22 @@ public class ControllerUserChoose {
             primaryStage.show();
         });
 
+        otchet.setOnAction(actionEvent -> {
+            Stage stage = (Stage) ProjectsTable.getScene().getWindow();
+            stage.close();
+
+            Stage primaryStage = new Stage();
+            Parent path = null;
+            try {
+                path = FXMLLoader.load(getClass().getResource("otchet.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(path);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        });
+
         Exit.setOnAction(actionEvent -> {
             Stage stage = (Stage) ProjectsTable.getScene().getWindow();
             stage.close();
@@ -71,7 +90,7 @@ public class ControllerUserChoose {
             Stage primaryStage = new Stage();
             Parent path = null;
             try {
-                path = FXMLLoader.load(getClass().getResource("userChoose.fxml"));
+                path = FXMLLoader.load(getClass().getResource("authorization.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

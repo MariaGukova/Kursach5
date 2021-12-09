@@ -37,7 +37,12 @@ public class ControllerUserWindow {
     private Button Search;
 
     @FXML
+    private Button read;
+
+    @FXML
     private TextField TextFieldSearch;
+    @FXML
+    private TableColumn<ProjectProperty,String> level;
 
     @FXML
     private TableColumn<ProjectProperty,String> cost;
@@ -65,17 +70,21 @@ public class ControllerUserWindow {
         customer.setCellValueFactory(cellValue -> cellValue.getValue().costProperty());
         cost.setCellValueFactory(cellValue -> cellValue.getValue().customerProperty());
         deadline.setCellValueFactory(cellValue -> cellValue.getValue().deadlineProperty());
+        level.setCellValueFactory(cellValue -> cellValue.getValue().levelProperty());
 
-        tableProjectProperties.clear();// чтобы не добавлять каждый раз к существующему списку
-        connectionTCP.writeObject(Command.READ);
-        List<Project> projects = (List<Project>) connectionTCP.readObject();
-        for (int i = 0; i < projects.size(); i++) {
-            ProjectProperty e = new ProjectProperty(projects.get(i));
-            tableProjectProperties.add(e);
+        read.setOnAction(actionEvent -> {
 
-        }
-        projectsTable.setItems(tableProjectProperties);// устанавливаем значение обсёрвабл листа в таблицу
+            tableProjectProperties.clear();// чтобы не добавлять каждый раз к существующему списку
+            connectionTCP.writeObject(Command.READ);
+            List<Project> projects = (List<Project>) connectionTCP.readObject();
+            for (int i = 0; i < projects.size(); i++) {
+                ProjectProperty e = new ProjectProperty(projects.get(i));
+                tableProjectProperties.add(e);
 
+            }
+            projectsTable.setItems(tableProjectProperties);// устанавливаем значение обсёрвабл листа в таблицу
+
+        });
 
 
         Exit.setOnAction(event -> {

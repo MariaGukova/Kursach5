@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="850.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.it.ControllerUserOtchet">
+   <children>
+      <AnchorPane layoutY="79.0" prefHeight="363.0" prefWidth="850.0" style="-fx-background-color: #fafafa;">
+         <children>
+            <Button fx:id="Exit" layoutX="59.0" layoutY="178.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Назад" />
+            <Button fx:id="read" layoutX="43.0" layoutY="119.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Показать" />
+            <TableView fx:id="otchetTable" layoutX="187.0" layoutY="28.0" prefHeight="292.0" prefWidth="599.0" style="-fx-background-color: #F0F8FF;">
+               <columns>
+                  <TableColumn fx:id="name" prefWidth="117.0" text="Name" />
+                  <TableColumn fx:id="risks" prefWidth="195.0" text="Risks" />
+                  <TableColumn fx:id="participants" prefWidth="191.0" text="Participants" />
+                  <TableColumn fx:id="deadline" prefWidth="95.0" text="Deadline" />
+               </columns>
+            </TableView>
+            <Button fx:id="otchet" layoutX="42.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Отчёт" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="255.0" layoutY="14.0" prefHeight="46.0" prefWidth="353.0" text="Таблица отчётности" textAlignment="CENTER" textFill="#f8f6f6">
+         <font>
+            <Font name="Century" size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

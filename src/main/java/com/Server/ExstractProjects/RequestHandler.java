@@ -3,6 +3,7 @@ package com.Server.ExstractProjects;
 import com.Server.dataBase.Command;
 import com.Server.dataBase.Database;
 import com.Server.server.ConnectionTCP;
+import com.example.it.model.Otchet;
 import com.example.it.model.Project;
 import com.example.it.model.User;
 
@@ -31,6 +32,7 @@ public class RequestHandler implements Runnable {
 
             Database Projects = new Database();
             Database Users = new Database();
+            Database Otchets = new Database();
 
             while (true) {
 
@@ -58,6 +60,12 @@ public class RequestHandler implements Runnable {
                         List<User> users = null;
                         users = Users.getAllUsers();
                         connectionTCP.writeObject(users);
+                    }
+                    break;
+                    case READ2: {
+                        List<Otchet> otchets = null;
+                        otchets = Otchets.getOtchet();
+                        connectionTCP.writeObject(otchets);
                     }
                     break;
                     case DELETE: {

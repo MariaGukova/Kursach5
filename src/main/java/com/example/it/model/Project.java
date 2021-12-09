@@ -12,11 +12,12 @@ public class Project implements Serializable {
         private String deadline;
         private String level;
 
-        public Project( String name,   // когда клиент присылает информацию
+        public Project(Integer id, String name,   // когда клиент присылает информацию
                 String customer,
                 String cost,
                 String deadline,
                 String level){
+            this.id=id;
             this.name = name;
             this.customer = customer;
             this.cost = cost;
@@ -41,9 +42,11 @@ public class Project implements Serializable {
             this.level = level;
         }
 
+    public Project() {
 
+    }
 
-        public int getId() {
+    public int getId() {
         return id;
     }
 
@@ -68,6 +71,7 @@ public class Project implements Serializable {
     }
 
 
+    public void setId (Integer id) {this.id=id;}
         public void setName(String name) {
         this.name = name;
     }
