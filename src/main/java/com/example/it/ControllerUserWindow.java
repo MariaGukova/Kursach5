@@ -6,19 +6,16 @@ import com.Server.server.ConnectionTCP;
 import com.example.it.model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -33,8 +30,6 @@ public class ControllerUserWindow {
     @FXML
     private TableColumn<ProjectProperty, Integer> ID;
 
-    @FXML
-    private Button Search;
 
     @FXML
     private Button read;
@@ -72,6 +67,28 @@ public class ControllerUserWindow {
         deadline.setCellValueFactory(cellValue -> cellValue.getValue().deadlineProperty());
         level.setCellValueFactory(cellValue -> cellValue.getValue().levelProperty());
 
+
+        FilteredList<ProjectProperty> filteredData = new FilteredList<>(tableProjectProperties, p -> true);
+        TextFieldSearch.textProperty().addListener((ObservableList, oldValue, newValue) -> {
+            filteredData.setPredicate(projectProperty -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (projectProperty.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches first name.
+                } else if (projectProperty.getCost().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                } else if (projectProperty.getCustomer().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                return false; // Does not match.
+            });
+            SortedList<ProjectProperty> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(projectsTable.comparatorProperty());
+            projectsTable.setItems(sortedData);
+        });
+
         read.setOnAction(actionEvent -> {
 
             tableProjectProperties.clear();// чтобы не добавлять каждый раз к существующему списку
@@ -89,46 +106,14 @@ public class ControllerUserWindow {
 
         Exit.setOnAction(event -> {
 
-            Stage stage = (Stage)Exit.getScene().getWindow();
-            stage.close();
-
-            Stage primaryStage = new Stage();
-            Parent path = null;
-            try {
-                path = FXMLLoader.load(getClass().getResource("userChoose.fxml"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Scene scene = new Scene(path);
-            stage.setTitle("Authorization window");
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            connectionTCP.writeObject(Command.EXIT);
+            connectionTCP.close();
+            System.exit(0);
 
         });
 
-        Search.setOnAction(actionEvent -> {
-            searchProject();
-        });
 
-    }
-    private LinkedList<ProjectProperty> searchProject(){
-        String search = TextFieldSearch.getText();
-        System.out.println("1");
-        LinkedList<ProjectProperty> projectSearches = new LinkedList<>();
-        System.out.println("2");
-        for(ProjectProperty project : tableProjectProperties){
-            System.out.println("3");
-            if(search.equals(project.getName())){
-                System.out.println("4");
-                projectSearches.add(project);
-            }
-            else {
-               // Platform.runLater(() -> ex.setText("Such project doesn't exist"));
 
-            }
-
-        }
-        return projectSearches;
     }
 
 }

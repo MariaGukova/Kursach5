@@ -16,27 +16,30 @@
                <columns>
                   <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="name" prefWidth="149.0" text="Name" />
-                  <TableColumn fx:id="customer" prefWidth="140.0" text="Customer" />
-                  <TableColumn fx:id="cost" prefWidth="121.0" text="Cost" />
+                  <TableColumn fx:id="customer" prefWidth="155.0" text="Customer" />
+                  <TableColumn fx:id="cost" prefWidth="106.0" text="Cost, $" />
                   <TableColumn fx:id="deadline" prefWidth="111.0" text="Deadline" />
-                  <TableColumn fx:id="level" prefWidth="111.0" text="Level" />
+                  <TableColumn fx:id="level" prefWidth="111.0" text="Level,%" />
                </columns>
             </TableView>
-            <TextField fx:id="TextFieldSearch" layoutX="13.0" layoutY="184.0" prefHeight="25.0" prefWidth="116.0" />
-            <Button fx:id="Search" layoutX="21.0" layoutY="218.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Поиск" />
-            <Button fx:id="Exit" layoutX="14.0" layoutY="334.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Назад" />
+            <TextField fx:id="TextFieldSearch" layoutX="13.0" layoutY="210.0" prefHeight="25.0" prefWidth="116.0" />
+            <Button fx:id="Exit" layoutX="21.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Выход" />
             <Button fx:id="Edit" layoutX="737.0" layoutY="282.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Добавить" />
             <Button fx:id="Delete" layoutX="21.0" layoutY="100.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Удалить" />
             <Button fx:id="read" layoutX="21.0" layoutY="57.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Просмотреть" />
             <TextField fx:id="nameField" layoutX="215.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
-            <TextField fx:id="customerField" layoutX="435.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
-            <TextField fx:id="costField" layoutX="326.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="customerField" layoutX="326.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="costField" layoutX="432.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
             <TextField fx:id="deadlineField" layoutX="543.0" layoutY="307.0" prefHeight="25.0" prefWidth="99.0" />
             <Label fx:id="ex" layoutX="25.0" layoutY="263.0" prefHeight="11.0" prefWidth="45.0" />
-            <Button fx:id="Import" layoutX="21.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Отчёт" />
             <TextField fx:id="levelField" layoutX="653.0" layoutY="307.0" prefHeight="25.0" prefWidth="68.0" />
             <Button fx:id="update" layoutX="737.0" layoutY="334.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Редактировать" />
             <TextField fx:id="idField" layoutX="148.0" layoutY="307.0" prefHeight="25.0" prefWidth="51.0" />
+            <Label layoutX="12.0" layoutY="181.0" text="Поиск по таблице:">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Label layoutX="239.0" layoutY="14.0" prefHeight="46.0" prefWidth="372.0" text="Таблица IT проектов" textAlignment="CENTER" textFill="#f8f6f6">

@@ -1,10 +1,7 @@
 package com.Server.dataBase;
 
 import com.Server.constants.Constants;
-import com.example.it.model.Otchet;
-import com.example.it.model.Project;
-import com.example.it.model.User;
-import com.example.it.model.Admin;
+import com.example.it.model.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -163,6 +160,28 @@ public class Database {
     }
 
 
+   /* public List<Project> getAllCost() {//просмотр проектов
+        List<Project> projects = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+             Statement statement = connection.createStatement()) { //выполняет запрос
+            ResultSet resultSet = statement.executeQuery("SELECT " + Constants.PROJECT_NAME +  " , "
+                    + Constants.COST +  " FROM " + Constants.PROJECTS_TABLE);
+
+            while (resultSet.next()) {
+
+                String name = resultSet.getString("name");
+                String cost = resultSet.getString("cost");
+
+                Project project = new Project(name, cost);
+                projects.add(project);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return projects;
+    }*/
+
         public void updateProject(Project project) {//обновление проектов после редактирования
             try (Connection connection = DatabaseConnectionProvider.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(
@@ -303,6 +322,50 @@ public class Database {
         return otchets;
     }
 
+    public List<Project> getAllLevel() {
+        List<Project> projects = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+             Statement statement = connection.createStatement()) { //выполняет запрос
+            ResultSet resultSet = statement.executeQuery("SELECT " + Constants.PROJECT_NAME +  " , "
+                    + Constants.LEVEL +  " FROM " + Constants.PROJECTS_TABLE);
+
+            while (resultSet.next()) {
+
+                String name = resultSet.getString("name");
+                String level = resultSet.getString("level");
+
+                Project project = new Project(name, level);
+                projects.add(project);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return projects;
+
+    }
+
+    public List<Customer> getCustomers() {
+        List<Customer> customers = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+             Statement statement = connection.createStatement()) { //выполняет запрос
+            ResultSet resultSet = statement.executeQuery("SELECT " + Constants.CUSTOMERS_NAME +  " , "
+                            + Constants.CUSTOMERS_NUMBER + " FROM " + Constants.CUSTOMERS_TABLE);
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String number = resultSet.getString("number");
+
+                Customer customer = new Customer(name, number);
+                customers.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customers;
+    }
+
 
     public static void filewriter() throws ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
@@ -325,7 +388,7 @@ public class Database {
                     data.add(id + "\t\t" + name + "\t\t\t\t" +customer + "\t\t" + cost + "\t\t\t\t" + deadline + "\t\t\t\t" + level);
                 }
                 head.add("\n");
-                head.add("ID\t\tName\t\t\t\tCost\t\t\t\tCustomer\t\t\tDeadline\t\t\tReadiness level\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                head.add("ID\t\tName\t\t\t\tCustomer\t\t\t\tCost, $\t\t\tDeadline\t\t\tReadiness level, %\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 writeToFile(head, "AdminOtchet.txt");
                 writeToFile(data, "AdminOtchet.txt");
                 resultSet.close();
@@ -339,7 +402,7 @@ public class Database {
             throwables.printStackTrace();
         }
     }
-    public static void filewriter1() throws ClassNotFoundException {
+    public static void filewriterOtchet() throws ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
         ResultSet resultSet = null;
         List<String> data = new ArrayList<String>();
@@ -375,6 +438,43 @@ public class Database {
         }
     }
 
+    public static void filewriterCustomer() throws ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        ResultSet resultSet = null;
+        List<String> data = new ArrayList<String>();
+        List<String> head = new ArrayList<String>();
+        try (Connection connection = DatabaseConnectionProvider.getConnection();// если в скобках что-то указывается, то потом вызовется метод close()
+             Statement statement = connection.createStatement()
+        ) {
+            String sqlQuery = "select * from " + Constants.CUSTOMERS_TABLE;
+            try {
+                resultSet = statement.executeQuery(sqlQuery);
+                while (resultSet.next()) {
+
+                    String name = resultSet.getString(1);
+                    String adress =resultSet.getString(2);
+                    String telephone = resultSet.getString(3);
+                    String mail = resultSet.getString(4);
+                    String number = resultSet.getString(5);
+
+                    data.add(name + "\t\t\t" +adress + "\t\t\t" + telephone + "\t\t\t\t" + mail + "\t\t\t\t" + number );
+                }
+                head.add("\n");
+                head.add("Name\t\t\t\tAdress\t\t\t\tTelephone\t\t\tMail\t\t\tNumber\n--------------------------------------------------------------------------------------------------------------------------------------------------");
+                writeToFile(head, "Customer.txt");
+                writeToFile(data, "Customer.txt");
+                resultSet.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                System.out.println("Запрос " + sqlQuery + " был обработан!");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     private static void writeToFile(java.util.List<String> list, String path) {
         BufferedWriter out = null;
         try {
@@ -388,6 +488,7 @@ public class Database {
         } catch (IOException e) {
         }
     }
+
 
 
 }

@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutY="106.0" prefHeight="324.0" prefWidth="850.0" style="-fx-background-color: #fafafa;">
          <children>
-            <Button fx:id="Analysis" layoutX="26.0" layoutY="261.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="0.0" prefWidth="244.0" text="Анализ стоимости проектов">
+            <Button fx:id="Analysis" layoutX="61.0" layoutY="261.0" mnemonicParsing="false" pickOnBounds="false" prefHeight="32.0" prefWidth="176.0" text="Анализ заказчиков">
                <font>
                   <Font name="Times New Roman" size="17.0" />
                </font>
@@ -21,9 +21,9 @@
                   <Font name="Times New Roman" size="17.0" />
                </font>
             </Button>
-            <ImageView fitHeight="166.0" fitWidth="257.0" layoutX="20.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="165.0" fitWidth="257.0" layoutX="21.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@analysis.png" />
+                  <Image url="@analysis1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="154.0" fitWidth="309.0" layoutX="606.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">

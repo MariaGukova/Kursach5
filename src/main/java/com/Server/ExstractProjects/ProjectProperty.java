@@ -15,7 +15,9 @@ public class ProjectProperty {
     private StringProperty deadline;
     private StringProperty level;
 
+    public ProjectProperty() {
 
+    }
     public ProjectProperty(Project project) {
         id = new SimpleIntegerProperty(project.getId());
         name = new SimpleStringProperty(project.getName());

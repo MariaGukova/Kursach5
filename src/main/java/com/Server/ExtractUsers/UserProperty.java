@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class UserProperty {
+
     private IntegerProperty id;
     private StringProperty name;
     private StringProperty surname;

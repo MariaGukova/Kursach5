@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static com.Server.dataBase.Database.filewriter1;
+import static com.Server.dataBase.Database.filewriterOtchet;
 
 public class ControllerUserOtchet {
 
@@ -81,10 +81,17 @@ public class ControllerUserOtchet {
         });
         otchet.setOnAction(actionEvent -> {
             try {
-                filewriter1();
+                filewriterOtchet();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+        });
+
+        Exit.setOnAction(event -> {
+            connectionTCP.writeObject(Command.EXIT);
+            connectionTCP.close();
+            System.exit(0);
+
         });
 
     }

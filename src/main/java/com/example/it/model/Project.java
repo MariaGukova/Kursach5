@@ -46,6 +46,14 @@ public class Project implements Serializable {
 
     }
 
+
+
+    public Project(String name, String level) {
+            this.name = name;
+            this.level = level;
+    }
+
+
     public int getId() {
         return id;
     }

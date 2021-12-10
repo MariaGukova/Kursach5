@@ -35,6 +35,11 @@ public class Constants {
     public static final String ADMIN_LOGIN = "login";
     public static final String ADMIN_PASSWORD = "password";
 
+    public static final String CUSTOMERS_TABLE = "customers";
+    public static final String CUSTOMERS_NAME = "name";
+    public static final String CUSTOMERS_NUMBER = "number";
+
+
 
 
 }

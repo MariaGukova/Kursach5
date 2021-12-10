@@ -7,6 +7,8 @@ import com.Server.server.ConnectionTCP;
 import com.example.it.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -16,7 +18,6 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -94,6 +95,28 @@ public class ControllerUsersTable {
         password.setCellValueFactory(cellValue -> cellValue.getValue().passwordProperty());
 
 
+
+        FilteredList<UserProperty> filteredData = new FilteredList<>(tableUserProperties, p -> true);
+        TextFieldSearch.textProperty().addListener((ObservableList, oldValue, newValue) -> {
+            filteredData.setPredicate(userProperty -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (userProperty.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches first name.
+                } else if (userProperty.getSurname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                return false; // Does not match.
+            });
+            SortedList<UserProperty> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(usersTable.comparatorProperty());
+            usersTable.setItems(sortedData);
+        });
+
+
+
         Add.setOnAction(actionEvent -> {
 
             tableUserProperties.clear();// чтобы не добавлять каждый раз к существующему списку
@@ -135,9 +158,7 @@ public class ControllerUsersTable {
             connectionTCP.writeObject(Command.CREATE1);
             connectionTCP.writeObject(user);
         });
-        Search.setOnAction(actionEvent -> {
-            searchUser();
-        });
+
 
        /* Update.setOnAction(event -> {
             try {
@@ -194,23 +215,6 @@ public class ControllerUsersTable {
             System.exit(0);
 
         });
-    }
-    private LinkedList<UserProperty> searchUser(){
-        String search = TextFieldSearch.getText();
-        System.out.println("1");
-        LinkedList<UserProperty> userSearches = new LinkedList<>();
-        System.out.println("2");
-        for(UserProperty user : tableUserProperties){
-            System.out.println("3");
-            if(search.equals(user.getName())){
-                System.out.println("4");
-                userSearches.add(user);
-            }
-            else {
-                //Platform.runLater(() -> ex.setText("Such project doesn't exist"));
-            }
-        }
-        return userSearches;
     }
 
 

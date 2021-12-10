@@ -21,9 +21,8 @@
                   <TableColumn fx:id="password" prefWidth="142.0" text="Password" />
                </columns>
             </TableView>
-            <TextField fx:id="TextFieldSearch" layoutX="12.0" layoutY="165.0" prefHeight="25.0" prefWidth="136.0" />
-            <Button fx:id="Search" layoutX="37.0" layoutY="211.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Поиск" />
-            <Button fx:id="Exit" layoutX="40.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Назад" />
+            <TextField fx:id="TextFieldSearch" layoutX="15.0" layoutY="204.0" prefHeight="25.0" prefWidth="136.0" />
+            <Button fx:id="Exit" layoutX="40.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Выход" />
             <Button fx:id="Edit" layoutX="725.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Добавить" />
             <Button fx:id="Delete" layoutX="34.0" layoutY="119.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Удалить" />
             <Button fx:id="Add" layoutX="34.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Просмотреть" />
@@ -31,6 +30,11 @@
             <TextField fx:id="surnameField" layoutX="332.0" layoutY="307.0" prefHeight="25.0" prefWidth="106.0" />
             <TextField fx:id="loginField" layoutX="463.0" layoutY="309.0" prefHeight="25.0" prefWidth="106.0" />
             <TextField fx:id="passwordField" layoutX="593.0" layoutY="309.0" prefHeight="25.0" prefWidth="106.0" />
+            <Label layoutX="21.0" layoutY="172.0" text="Поиск по таблице:">
+               <font>
+                  <Font name="Times New Roman" size="15.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Label layoutX="213.0" layoutY="14.0" prefHeight="46.0" prefWidth="425.0" text="Таблица пользователей" textAlignment="CENTER" textFill="#f8f6f6">

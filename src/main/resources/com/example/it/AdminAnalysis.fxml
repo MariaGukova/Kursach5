@@ -10,9 +10,9 @@
    <children>
       <AnchorPane layoutY="78.0" prefHeight="352.0" prefWidth="850.0" style="-fx-background-color: #fafafa;">
          <children>
-            <Button fx:id="Exit" layoutX="738.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Назад" />
-            <Label fx:id="label" layoutX="618.0" layoutY="44.0" prefHeight="17.0" prefWidth="190.0" text="Label" />
-            <PieChart fx:id="pcCost" layoutX="45.0" layoutY="26.0" prefHeight="300.0" prefWidth="396.0" />
+            <PieChart fx:id="pcLevel" layoutX="27.0" layoutY="10.0" prefHeight="333.0" prefWidth="545.0" />
+            <Button fx:id="Import" layoutX="653.0" layoutY="159.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Отчёт" />
+            <Button fx:id="Exit" layoutX="660.0" layoutY="199.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Выход" />
          </children>
       </AnchorPane>
       <Label layoutX="114.0" layoutY="14.0" prefHeight="46.0" prefWidth="622.0" text="Анализ уровня готовности проектов" textAlignment="CENTER" textFill="#f8f6f6">
