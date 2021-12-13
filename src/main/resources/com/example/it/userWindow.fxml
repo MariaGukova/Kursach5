@@ -19,8 +19,8 @@
                <columns>
                   <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="name" prefWidth="149.0" text="Name" />
-                  <TableColumn fx:id="customer" prefWidth="140.0" text="Cost" />
-                  <TableColumn fx:id="cost" prefWidth="121.0" text="Customer" />
+                  <TableColumn fx:id="customer" prefWidth="140.0" text="Customer" />
+                  <TableColumn fx:id="cost" prefWidth="121.0" text="Cost" />
                   <TableColumn fx:id="deadline" prefWidth="111.0" text="Deadline" />
                   <TableColumn fx:id="level" prefWidth="111.0" text="Level" />
                </columns>

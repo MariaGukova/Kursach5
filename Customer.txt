@@ -1,0 +1,8 @@
+
+
+Name				Adress				Telephone			Mail			Number
+--------------------------------------------------------------------------------------------------------------------------------------------------
+BECOMP			Minsk			+375298988450				BECOMP@gmail.com				3
+EPAM			Minsk			856428				EPAM@mail.ru				1
+IBA Group			Minsk			+375334896578				IBA@gmail.com				0
+iTechArt Group			Minsk			9687532				iTech@tut.by				1
